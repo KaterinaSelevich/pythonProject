@@ -24,5 +24,5 @@ class Material(models.Model):
 
     material_type = models.CharField(max_length=25, choices=MATERIAL_TYPE, default='theory')
 
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return self.title
