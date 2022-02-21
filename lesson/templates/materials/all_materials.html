@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    All materials
+{% endblock %}
+
+{% block content %}
+    <h1>All materials:</h1>
+    {% for material in materials %}
+        <h3>{{ material.title }}</h3>
+        <p>
+            {{ material.body|truncatewords:5 }}
+        </p>
+        Published {{ materials.publish }} by {{ materials.author }}
+    {% endfor %}
+
+{% endblock %}
