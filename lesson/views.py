@@ -5,4 +5,4 @@ from . import models
 
 def all_materials(request):
     materials = models.Material.objects.all()
-    return render(request, 'materials/all_materials.html', {'materials: materials'})
+    return render(request, 'materials/all_materials.html', {'materials': materials})
