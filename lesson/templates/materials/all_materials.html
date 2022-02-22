@@ -11,6 +11,7 @@
         <p>
             {{ material.body|truncatewords:5 }}
         </p>
+        <a href="{{material.get_absolute_url}}">Link to material</a> <br>
         Published {{ materials.publish }} by {{ materials.author }}
     {% endfor %}
 
