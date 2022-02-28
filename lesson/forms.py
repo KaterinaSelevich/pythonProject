@@ -1,6 +1,6 @@
 from django import forms
 
-class EmailMaterialsForm(forms.Form):
+class EmailMaterialForm(forms.Form):
     to_email = forms.EmailField()
     comment = forms.CharField(required=False,
                               widget=forms.Textarea)
