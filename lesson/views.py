@@ -2,11 +2,14 @@
 from django.core.mail import send_mail
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+
+from django.views.generic import ListView
 
 from . import models
 from . import forms
@@ -16,10 +19,15 @@ from . import forms
 # Create your views here.
 
 
-def all_materials(request):
-    materials = models.Material.objects.all()
-    return render(request, 'materials/all_materials.html', {'materials': materials})
-
+class MaterialListView(LoginRequiredMixin, ListView):
+    queryset = models.Material.objects.all()
+    context_object_name = 'materials'
+    template_name = "materials/all_materials.html"
+#
+# def all_materials(request):
+#     materials = models.Material.objects.all()
+#     return render(request, "materials/all_materials.html",
+#                   {"materials": materials})
 
 @login_required
 def detailed_material(request, yy, mm, dd, slug):
