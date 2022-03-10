@@ -14,5 +14,7 @@
         <a href="{{material.get_absolute_url}}">Link to material</a> <br>
         Published {{ materials.publish }} by {{ materials.author }}
     {% endfor %}
-
+    <p>
+        <a href="{% url "lesson:create_form" %}">Create new material</a>
+    </p>
 {% endblock %}
