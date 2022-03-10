@@ -1,5 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail
+
+from django.contrib.auth.models import User
+
 from . import models
 from . import forms
 
@@ -20,10 +23,10 @@ def detailed_material(request, yy, mm, dd, slug):
 def share_material(request, material_id):
     material = get_object_or_404(models.Material, id=material_id)
     if request.method == 'POST':
-        form = forms.EmailMaterialsForm(request.POST)
+        form = forms.EmailMaterialForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            material_uri = request.build.absolute_uri(
+            material_uri = request.build_absolute_uri(
                 material.get_absolute_url()
                 )
             subject = 'Someone shared with you material ' + material.title
@@ -37,3 +40,22 @@ def share_material(request, material_id):
     return render(request,
                   'materials/share.html',
                   {'material': material, 'form':form})
+
+
+def create_material(request):
+    if request.method == 'POST':
+        material_form = forms.MaterialForm(request.POST)
+        if material_form.is_valid():
+            new_material = material_form.save(commit=False)
+            new_material.author = User.objects.first()
+            new_material.slug = new_material.title.replace(' ', '_')
+            new_material.save()
+            return render(request,
+                          "materials/detailed_material.html",
+                          {"material": new_material})
+
+    else:
+        material_form = forms.MaterialForm()
+    return render(request,
+                  'materials/create.html',
+                  {'form': material_form})
