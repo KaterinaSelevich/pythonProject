@@ -1,10 +1,17 @@
-from django.shortcuts import render, get_object_or_404
-from django.core.mail import send_mail
 
+from django.core.mail import send_mail
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 
 from . import models
 from . import forms
+
+
 
 # Create your views here.
 
@@ -14,6 +21,7 @@ def all_materials(request):
     return render(request, 'materials/all_materials.html', {'materials': materials})
 
 
+@login_required
 def detailed_material(request, yy, mm, dd, slug):
     material = get_object_or_404(models.Material, publish__year=yy, 
                                 publish__month=mm, publish__day=dd, slug=slug)
@@ -59,3 +67,25 @@ def create_material(request):
     return render(request,
                   'materials/create.html',
                   {'form': material_form})
+
+
+def custom_login(request):
+    if request.method == 'POST':
+        form = forms.LoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(
+                username=cd['username'],
+                password=cd['password'],
+            )
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponse('user was logged in')
+                else:
+                    return HttpResponse('user account is not activated')
+            else:
+                return HttpResponse('Incorrect User/Password')
+    else:
+        form = forms.LoginForm()
+        return render(request, 'login.html', {'form': form})
