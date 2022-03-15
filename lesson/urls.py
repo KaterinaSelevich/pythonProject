@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import views as auth_views
 from . import views
 
 app_name = 'lesson'
@@ -12,6 +13,8 @@ urlpatterns = [
          name='share_material'),
     path('create/', views.create_material,
          name='create_form'),
-    path('login/', views.custom_login, name='login'),
+#     path('login/', views.custom_login, name='login'),
+    path('login/', auth_views.Login.View.as_view(), name='login'),
+path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
 ] 
