@@ -45,4 +45,5 @@ path('logout/', auth_views.LogoutView.as_view(), name='logout'),
         name="password_reset_complete",
     ),
 
+    path('profile/', views.view_profile, name='profile'),
 ]
