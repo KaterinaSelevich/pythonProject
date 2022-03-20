@@ -9,4 +9,27 @@
         <p>{{ material.body }}</p>
         <p>Published {{ material.publish }} by {{ material.author }}</p>
         <a href="{% url "lesson:share_material" material.id %}">Share</a>
+
+    {# comments for material #}
+    {% if commented %}
+        You've left a comment
+    {% else %}
+        <form action="." method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+        <input type="submit" value="Add comment">
+    {% endif %}
+    </form>
+        <br>
+        {% with material.comments.count as total_comments %}
+            {{ total_comments }} comment{{ total_comments|pluralize }}
+        {% endwith %}
+<br>
+        {% for comment in material.comments.all %}
+            <p> Comment #{{ forloop.counter }} by {{ comment.name}}</p>
+            {{ comment.body }}
+        {% empty %}
+            No comments yet. You can be the first one.
+        {% endfor %}
+        
 {% endblock %}

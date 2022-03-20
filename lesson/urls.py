@@ -16,7 +16,7 @@ class MyHack(auth_views.PasswordResetView):
 urlpatterns = [
     # path('', views.all_materials, name='all_materials'),
     path('', views.MaterialListView.as_view(), name='all_materials'),
-    path('<int:yy>/<int:mm>/<int:dd>/<slug:slug>', 
+    path('<int:yy>/<int:mm>/<int:dd>/<slug:slug>/', 
          views.detailed_material, name = 'detailed_material'),
     path('<int:material_id>/share/', views.share_material,
          name='share_material'),

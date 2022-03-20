@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 
 from django.views.generic import ListView
 
@@ -33,8 +34,19 @@ class MaterialListView(LoginRequiredMixin, ListView):
 def detailed_material(request, yy, mm, dd, slug):
     material = get_object_or_404(models.Material, publish__year=yy, 
                                 publish__month=mm, publish__day=dd, slug=slug)
-    return render(request, 'materials/detailed_material.html',
-                {'material': material})
+    if request.method == "POST":
+            comment_form = forms.CommentForm(request.POST)
+            if comment_form.is_valid():
+                new_comment = comment_form.save(commit=False)
+                new_comment.material = material
+                new_comment.save()
+                return redirect(material)
+    else:
+        comment_form = forms.CommentForm()
+
+    return render(request, "materials/detailed_material.html",
+                  {"material": material,
+                   "form": comment_form})
 
 def share_material(request, material_id):
     material = get_object_or_404(models.Material, id=material_id)
