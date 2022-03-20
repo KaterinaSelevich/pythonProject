@@ -122,3 +122,4 @@ STATIC_URL = '/static/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 LOGIN_URL = '/lesson/login/'
+LOGIN_REDIRECT_URL = '/lesson/'
