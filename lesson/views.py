@@ -20,73 +20,73 @@ from . import forms
 # Create your views here.
 
 
-class MaterialListView(LoginRequiredMixin, ListView):
-    queryset = models.Material.objects.all()
-    context_object_name = 'materials'
-    template_name = "materials/all_materials.html"
+class TeamListView(LoginRequiredMixin, ListView):
+    queryset = models.Team.objects.all()
+    context_object_name = 'teams'
+    template_name = "teams/all_teams.html"
 #
-# def all_materials(request):
-#     materials = models.Material.objects.all()
-#     return render(request, "materials/all_materials.html",
-#                   {"materials": materials})
+# def all_teams(request):
+#     teams = models.Team.objects.all()
+#     return render(request, "teams/all_teams.html",
+#                   {"teams": teams})
 
 @login_required
-def detailed_material(request, yy, mm, dd, slug):
-    material = get_object_or_404(models.Material, publish__year=yy, 
+def detailed_team(request, yy, mm, dd, slug):
+    team = get_object_or_404(models.Team, publish__year=yy, 
                                 publish__month=mm, publish__day=dd, slug=slug)
     if request.method == "POST":
             comment_form = forms.CommentForm(request.POST)
             if comment_form.is_valid():
                 new_comment = comment_form.save(commit=False)
-                new_comment.material = material
+                new_comment.team = team
                 new_comment.save()
-                return redirect(material)
+                return redirect(team)
     else:
         comment_form = forms.CommentForm()
 
-    return render(request, "materials/detailed_material.html",
-                  {"material": material,
+    return render(request, "teams/detailed_team.html",
+                  {"team": team,
                    "form": comment_form})
 
-def share_material(request, material_id):
-    material = get_object_or_404(models.Material, id=material_id)
+def share_team(request, team_id):
+    team = get_object_or_404(models.Team, id=team_id)
     if request.method == 'POST':
-        form = forms.EmailMaterialForm(request.POST)
+        form = forms.EmailTeamForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            material_uri = request.build_absolute_uri(
-                material.get_absolute_url()
+            team_uri = request.build_absolute_uri(
+                team.get_absolute_url()
                 )
-            subject = 'Someone shared with you material ' + material.title
-            body_template = ('On our resource someone shared material with'
-                             'you. \n\nlink to material: {link}\n\ncomment: '
+            subject = 'Someone shared with you team ' + team.title
+            body_template = ('On our resource someone shared team with'
+                             'you. \n\nlink to team: {link}\n\ncomment: '
                              '{comment}')
-            body = body_template.format(link=material_uri, comment=cd['comment'])
+            body = body_template.format(link=team_uri, comment=cd['comment'])
             send_mail(subject, body, 'admin@my.com', (cd['to_email'],))
     else:
-        form = forms.EmailMaterialForm()
+        form = forms.EmailTeamForm()
     return render(request,
-                  'materials/share.html',
-                  {'material': material, 'form':form})
+                  'teams/share.html',
+                  {'team': team, 'form':form})
 
 
-def create_material(request):
+def create_team(request):
     if request.method == 'POST':
-        material_form = forms.MaterialForm(request.POST)
-        if material_form.is_valid():
-            new_material = material_form.save(commit=False)
-            new_material.author = User.objects.first()
-            new_material.slug = new_material.title.replace(' ', '_')
-            new_material.save()
+        team_form = forms.TeamForm(request.POST)
+        if team_form.is_valid():
+            new_team = team_form.save(commit=False)
+            new_team.author = User.objects.first()
+            new_team.slug = new_team.title.replace(' ', '_')
+            new_team.save()
             return render(request,
-                          "materials/detailed_material.html",
-                          {"material": new_material})
+                          "teams/detailed_team.html",
+                          {"team": new_team})
 
     else:
-        material_form = forms.MaterialForm()
+        team_form = forms.TeamForm()
     return render(request,
-                  'materials/create.html',
-                  {'form': material_form})
+                  'teams/create.html',
+                  {'form': team_form})
 
 
 def custom_login(request):

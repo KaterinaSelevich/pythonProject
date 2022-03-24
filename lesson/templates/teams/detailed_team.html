@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}{{ material.title }}{% endblock %}
+{% block title %}{{ team.title }}{% endblock %}
 
 {% block content %}
-        <a href="{% url "lesson:all_materials" %}">Back to materials</a>
-        <h1>{{ material.title }}</h1>
-        <p>{{ material.material_type }}</p>
-        <p>{{ material.body }}</p>
-        <p>Published {{ material.publish }} by {{ material.author }}</p>
-        <a href="{% url "lesson:share_material" material.id %}">Share</a>
+        <a href="{% url "lesson:all_teams" %}">Назад к командамз</a>
+        <h1>{{ team.title }}</h1>
+        <p>{{ team.team_type }}</p>
+        <p>{{ team.body }}</p>
+        <img src="{{ team.cover.url }}">
+        <p>Published {{ team.publish }} by {{ team.author }}</p>
+        <a href="{% url "lesson:share_team" team.id %}">Share</a>
 
-    {# comments for material #}
+    {# comments for team #}
     {% if commented %}
         You've left a comment
     {% else %}
@@ -21,11 +22,11 @@
     {% endif %}
     </form>
         <br>
-        {% with material.comments.count as total_comments %}
+        {% with team.comments.count as total_comments %}
             {{ total_comments }} comment{{ total_comments|pluralize }}
         {% endwith %}
 <br>
-        {% for comment in material.comments.all %}
+        {% for comment in team.comments.all %}
             <p> Comment #{{ forloop.counter }} by {{ comment.name}}</p>
             {{ comment.body }}
         {% empty %}

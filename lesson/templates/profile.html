@@ -5,15 +5,15 @@
 {% block content %}
     <h2>Hi {{ request.user.first_name }}:</h2>
     <p>Birthday: {{ request.user.profile.birth }}</p>
-    <h2>Authors' materials:     </h2><br>
+    <h2>Authors' teams:     </h2><br>
     <ul>
-        {% for material in request.user.user_materials.all %}
+        {% for team in request.user.user_teams.all %}
             <li>
-                <h3> <a href="{{material.get_absolute_url}}">{{ material.title }}</a></h3>
-                Published: {{ material.publish }}
+                <h3> <a href="{{team.get_absolute_url}}">{{ team.title }}</a></h3>
+                Published: {{ team.publish }}
             </li>
         {% endfor %}
     </ul>
-    
+
     <p>avatar: <img src="{{ request.user.profile.photo.url }}" alt="alter text"></p>
 {% endblock %}

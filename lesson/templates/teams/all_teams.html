@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Teams
+{% endblock %}
+
+{% block content %}
+    <h1>Команды:</h1>
+    {% for team in teams %}
+        <h3>{{ team.title }}</h3>
+        <p>
+            {{ team.body|truncatewords:5 }}
+        </p>
+        <a href="{{team.get_absolute_url}}">Link to team</a> <br>
+        Published {{ teams.publish }} by {{ teams.author }}
+    {% endfor %}
+    <p>
+        <a href="{% url "lesson:create_form" %}">Create new team</a>
+    </p>
+{% endblock %}

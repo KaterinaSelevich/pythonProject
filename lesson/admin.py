@@ -2,14 +2,15 @@ from django.contrib import admin
 from . import models
 
 # Register your models here.
-# admin.site.register(models.Material)
+# admin.site.register(models.Team)
 
 admin.site.register(models.Comment)
+admin.site.register(models.Profile)
 
-@admin.register(models.Material)
-class MaterialAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'material_type', 'publish')
-    list_filter = ('material_type', 'created')
+@admin.register(models.Team)
+class TeamAdmin(admin.ModelAdmin):
+    list_display = ('title', 'slug', 'team_type', 'publish')
+    list_filter = ('team_type', 'created')
     search_fields = ('title', 'body')
     prepopulated_fields  = {'slug': ('title', )}
-    ordering = ('material_type', 'title')
+    ordering = ('team_type', 'title')

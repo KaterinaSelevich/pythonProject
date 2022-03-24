@@ -2,16 +2,16 @@ from django import forms
 from . import models
 from django.contrib.auth.models import User
 
-class EmailMaterialForm(forms.Form):
+class EmailTeamForm(forms.Form):
     to_email = forms.EmailField()
     comment = forms.CharField(required=False,
                               widget=forms.Textarea)
 
 
-class MaterialForm(forms.ModelForm):
+class TeamForm(forms.ModelForm):
     class Meta:
-        model = models.Material
-        fields = ('title', 'body', 'material_type')
+        model = models.Team
+        fields = ('title', 'body', 'team_type')
 
 
 class LoginForm(forms.Form):
