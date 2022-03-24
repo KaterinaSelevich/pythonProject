@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Create Team{% endblock %}
+{% block title %}Создать команду{% endblock %}
 
 {% block content %}
-    <h2>Create new team:</h2>
+    <h2>Создать новую команду:</h2>
     <form action="." method="post">
         {{ form.as_p }}
         {% csrf_token %}

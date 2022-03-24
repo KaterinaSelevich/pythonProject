@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}User Profile{% endblock %}
+{% block title %}Профиль пользователя{% endblock %}
 
 {% block content %}
-    <h2>Hi {{ request.user.first_name }}:</h2>
-    <p>Birthday: {{ request.user.profile.birth }}</p>
-    <h2>Authors' teams:     </h2><br>
+    <h2>Здравствуйте, {{ request.user.first_name }}:</h2>
+    <p>Дата рождения: {{ request.user.profile.birth }}</p>
+    <h2>Команды автора:     </h2><br>
     <ul>
         {% for team in request.user.user_teams.all %}
             <li>
                 <h3> <a href="{{team.get_absolute_url}}">{{ team.title }}</a></h3>
-                Published: {{ team.publish }}
+                Опубликовано: {{ team.publish }}
             </li>
         {% endfor %}
     </ul>
 
-    <p>avatar: <img src="{{ request.user.profile.photo.url }}" alt="alter text"></p>
+    <p>Аватар: <img src="{{ request.user.profile.photo.url }}" alt="alter text"></p>
 {% endblock %}

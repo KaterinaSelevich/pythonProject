@@ -3,34 +3,34 @@
 {% block title %}{{ team.title }}{% endblock %}
 
 {% block content %}
-        <a href="{% url "lesson:all_teams" %}">Назад к командамз</a>
+        <a href="{% url "lesson:all_teams" %}">Назад к командам</a>
         <h1>{{ team.title }}</h1>
         <p>{{ team.team_type }}</p>
-        <p>{{ team.body }}</p>
+        <p>{{ team.body|linebreaks }}</p>
         <img src="{{ team.cover.url }}">
-        <p>Published {{ team.publish }} by {{ team.author }}</p>
-        <a href="{% url "lesson:share_team" team.id %}">Share</a>
-
+        <p>Опубликовано {{ team.publish }} автором {{ team.author }}</p>
+        <a href="{% url "lesson:share_team" team.id %}">Поделиться</a>
+        <p> Оставить комментарий о команде и о зале, в котором проходят тренировки. </p>
     {# comments for team #}
     {% if commented %}
-        You've left a comment
+        Вы оставили комментарий
     {% else %}
         <form action="." method="post">
             {{ form.as_p }}
             {% csrf_token %}
-        <input type="submit" value="Add comment">
+        <input type="submit" value="Оставить комментарий">
     {% endif %}
     </form>
         <br>
         {% with team.comments.count as total_comments %}
-            {{ total_comments }} comment{{ total_comments|pluralize }}
+            {{ total_comments }} комментарий{{ total_comments|pluralize }}
         {% endwith %}
 <br>
         {% for comment in team.comments.all %}
-            <p> Comment #{{ forloop.counter }} by {{ comment.name}}</p>
+            <p> Комментарий #{{ forloop.counter }} от пользователя {{ comment.name}}</p>
             {{ comment.body }}
         {% empty %}
-            No comments yet. You can be the first one.
+            Здесь пока нет комментариев. Вы можете быть первым, кто оставит комментарий.
         {% endfor %}
         
 {% endblock %}

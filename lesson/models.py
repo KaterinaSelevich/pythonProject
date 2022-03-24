@@ -22,8 +22,8 @@ class Team(models.Model):
     publish = models.DateTimeField(default=timezone.now())
 
     TEAM_TYPE = [
-        ('группа A', 'Группа А в НБЛ'),
-        ('группа B', 'Группа В в НБЛ'),
+        ('Группа A', 'Группа А в НБЛ'),
+        ('Группа B', 'Группа В в НБЛ'),
     ]
 
     team_type = models.CharField(max_length=25, choices=TEAM_TYPE, default='руппа А')

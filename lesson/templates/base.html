@@ -3,14 +3,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %} MY DEFAULT TITLE {% endblock %}</title>
+    <title>{% block title %} МОЙ ЗАГОЛОВОК ПО УМОЛЧАНИЮ {% endblock %}</title>
     <link href="{% static "styles.css" %}" rel="stylesheet">
 </head>
 <body>
     {% if request.user.is_authentificated %}
-    Hi {{ request.user.first_name }} <a href="{% url "lesson:logout" %}">Logout</a> <a href="{% url "lesson:profile" %}">Profile</a>
+    Здравствуйте, {{ request.user.first_name }} <a href="{% url "lesson:logout" %}">Логаут</a> <a href="{% url "lesson:profile" %}">Profile</a>
     {% else %}
-        <a href="{% url "lesson:login" %}">Login</a>
+        <a href="{% url "lesson:login" %}">Логин</a>
     {% endif %}
    {% block content %} 
    {% endblock %} 

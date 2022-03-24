@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Teams
+    Команды
 {% endblock %}
 
 {% block content %}
@@ -11,10 +11,10 @@
         <p>
             {{ team.body|truncatewords:5 }}
         </p>
-        <a href="{{team.get_absolute_url}}">Link to team</a> <br>
-        Published {{ teams.publish }} by {{ teams.author }}
+        <a href="{{team.get_absolute_url}}">Подробнее о команде</a> <br>
+        Опубликовано {{ teams.publish }} {{ teams.author }}
     {% endfor %}
     <p>
-        <a href="{% url "lesson:create_form" %}">Create new team</a>
+        <a href="{% url "lesson:create_form" %}">Создать новую команду</a>
     </p>
 {% endblock %}
