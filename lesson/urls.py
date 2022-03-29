@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.urls import reverse_lazy
+from .views import SearchResultsView
 
 from django.contrib.auth import views as auth_views
 from . import views
@@ -47,4 +48,5 @@ path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
     path('profile/', views.view_profile, name='profile'),
     path('register/', views.register, name='register'),
+    path('search/', SearchResultsView.as_view(), name='search_results'),
 ]

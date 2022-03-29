@@ -1,4 +1,5 @@
-
+from turtle import title
+from django.views.generic import ListView
 from django.core.mail import send_mail
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
@@ -9,8 +10,6 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
-
-from django.views.generic import ListView
 
 from . import models
 from . import forms
@@ -130,3 +129,14 @@ def register(request):
     else:
         user_form = forms.RegistrationForm(request.POST)
         return render(request, 'registration/register_user.html', {"form": user_form})
+
+
+class SearchResultsView(ListView):
+    model = models.Team
+    template_name = 'teams/search_results.html'
+
+    def get_queryset(self): 
+        object_list = models.Team.objects.filter(
+            title=self.request.GET.get('q')
+            )
+        return object_list

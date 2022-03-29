@@ -3,10 +3,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %} МОЙ ЗАГОЛОВОК ПО УМОЛЧАНИЮ {% endblock %}</title>
+    <title>{% block title %} MY TITLE DEFAULT {% endblock %}</title>
     <link href="{% static "styles.css" %}" rel="stylesheet">
 </head>
-<body>
+<body> 
     {% if request.user.is_authentificated %}
     Здравствуйте, {{ request.user.first_name }} <a href="{% url "lesson:logout" %}">Логаут</a> <a href="{% url "lesson:profile" %}">Profile</a>
     {% else %}

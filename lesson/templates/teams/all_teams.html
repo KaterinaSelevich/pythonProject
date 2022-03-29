@@ -5,14 +5,16 @@
 {% endblock %}
 
 {% block content %}
+<h2>Поиск по командам</h2>
+    <form action="{% url 'lesson:search_results' %}" method="get">
+        <input name="q" type="text" placeholder="Search..."></form>
     <h1>Команды:</h1>
     {% for team in teams %}
-        <h3>{{ team.title }}</h3>
+    <h3>{{ team.title }}</h3>
         <p>
-            {{ team.body|truncatewords:5 }}
+            {{ team.body|truncatewords:10 }}
         </p>
-        <a href="{{team.get_absolute_url}}">Подробнее о команде</a> <br>
-        Опубликовано {{ teams.publish }} {{ teams.author }}
+        <a href="{{team.get_absolute_url}}"> Подробнее о команде </a><br>
     {% endfor %}
     <p>
         <a href="{% url "lesson:create_form" %}">Создать новую команду</a>
