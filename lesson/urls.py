@@ -49,4 +49,5 @@ path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('profile/', views.view_profile, name='profile'),
     path('register/', views.register, name='register'),
     path('search/', SearchResultsView.as_view(), name='search_results'),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
 ]

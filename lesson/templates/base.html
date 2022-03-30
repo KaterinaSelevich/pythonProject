@@ -8,9 +8,9 @@
 </head>
 <body> 
     {% if request.user.is_authentificated %}
-    Здравствуйте, {{ request.user.first_name }} <a href="{% url "lesson:logout" %}">Логаут</a> <a href="{% url "lesson:profile" %}">Profile</a>
+    Здравствуйте, {{ request.user.first_name }} <a href="{% url "lesson:logout" %}">Выйти</a> <a href="{% url "lesson:profile" %}">Профиль</a>
     {% else %}
-        <a href="{% url "lesson:login" %}">Логин</a>
+        <a href="{% url "lesson:login" %}">Войти</a>
     {% endif %}
    {% block content %} 
    {% endblock %} 

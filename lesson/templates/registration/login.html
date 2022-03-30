@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 
-{% block title %}User login{% endblock %}
+{% block title %}Логин пользователя{% endblock %}
 
 {% block content %}
-    <h2>user login:</h2>
+    <h2>Логин пользователя:</h2>
     {% if form.errors %}
     <p>
-        Bad credentials
+        Неверные данные
     </p>
     {% else %}
     {% endif %}
     <form action="." method="post">
         {{ form.as_p }}
         {% csrf_token %}
-        <input type="submit" value="login">
-        <input type="hidden" name="next" value="{{ next }}">
+        <input type="submit" value="Логин">
+        <input type="hidden" name="Далее" value="{{ next }}">
     </form>
-    <a href="{% url "lesson:password_reset" %}">Forgot your password? </a>
-    <a href="{% url "lesson:register" %}">register </a>
+    <a href="{% url "lesson:password_reset" %}">Забыли свой пароль? </a> <br>
+    <a href="{% url "lesson:register" %}">Регистрация </a>
 {% endblock %}

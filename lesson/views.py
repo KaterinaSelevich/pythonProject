@@ -11,6 +11,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 
+
 from . import models
 from . import forms
 
@@ -140,3 +141,31 @@ class SearchResultsView(ListView):
             title=self.request.GET.get('q')
             )
         return object_list
+
+
+def _get_forms(request, post_method):
+    user_form = forms.UserEditForm(request.POST, instance=request.user)
+
+    kw = {'instance': request.user.profile}
+    if post_method: kw.update({'files': request.FILES})
+
+    profile_form = forms.ProfileEditForm(request.POST, **kw)
+
+    return user_form, profile_form
+
+
+def edit_profile(request):
+    post_method = request.method == "POST"
+    user_form, profile_form = _get_forms(request, post_method)
+
+    if post_method:
+        if profile_form.is_valid():
+            if user_form.is_valid():
+                if not profile_form.cleaned_data['photo']:
+                    profile_form.cleaned_data['photo'] = request.user.profile.photo
+                profile_form.save()
+                user_form.save()
+                return render(request, 'profile.html')
+    else:
+        return render(request, 'edit_profile.html',
+                      {'user_form': user_form, 'profile_form': profile_form})
