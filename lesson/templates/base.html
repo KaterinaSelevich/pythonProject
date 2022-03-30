@@ -3,16 +3,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %} MY TITLE DEFAULT {% endblock %}</title>
+    <title>{% block title %} MY DEFAULT TITLE{% endblock %}</title>
     <link href="{% static "styles.css" %}" rel="stylesheet">
 </head>
-<body> 
-    {% if request.user.is_authentificated %}
-    Здравствуйте, {{ request.user.first_name }} <a href="{% url "lesson:logout" %}">Выйти</a> <a href="{% url "lesson:profile" %}">Профиль</a>
+<body>
+    {% if request.user.is_authenticated %}
+        Здравствуйте, {{ request.user.first_name }}!     <a href="{% url "lesson:logout" %}">Выйти</a> <a href="{% url "lesson:profile" %}">Профиль</a>
     {% else %}
-        <a href="{% url "lesson:login" %}">Войти</a>
+            <a href="{% url "lesson:login" %}">Войти</a>
     {% endif %}
-   {% block content %} 
-   {% endblock %} 
+    <br>
+    {% block content%}
+    {% endblock %}
 </body>
 </html>

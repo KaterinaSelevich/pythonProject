@@ -7,7 +7,7 @@
 {% block content %}
 <h2>Поиск по командам</h2>
     <form action="{% url 'lesson:search_results' %}" method="get">
-        <input name="q" type="text" placeholder="Search..."></form>
+        <input name="q" type="text" placeholder="Поиск..."></form>
     <h1>Команды:</h1>
     {% for team in teams %}
     <h3>{{ team.title }}</h3>

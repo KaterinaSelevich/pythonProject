@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Логин пользователя{% endblock %}
+{% block title %}User login{% endblock %}
 
 {% block content %}
     <h2>Логин пользователя:</h2>
@@ -13,7 +13,7 @@
     <form action="." method="post">
         {{ form.as_p }}
         {% csrf_token %}
-        <input type="submit" value="Логин">
+        <input type="submit" value="Войти">
         <input type="hidden" name="Далее" value="{{ next }}">
     </form>
     <a href="{% url "lesson:password_reset" %}">Забыли свой пароль? </a> <br>
