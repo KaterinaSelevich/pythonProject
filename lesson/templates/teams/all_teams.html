@@ -1,13 +1,73 @@
 {% extends "base.html" %}
-
-{% block title %}
-    Команды
+<style>
+    h2 {
+color: ivory;
+}
+</style>
+{% block menu %}
+<h2>Поиск по командам</h2>
+    <form action="{% url 'lesson:search_results' %}" method="get"  style="margin: 20px;  border-color: black; border: 5ch; border-radius: 10%;">
+        <input name="q" type="text" placeholder="Поиск..."></form>
+         
+        <table class="table-success" style="width:99%; border: 1px solid black; border-spacing: 0px;   
+        margin: 0; color: rgb(0, 13, 77); padding: 0;">
+            <tr class="table-success">
+                <th class="table-success">Команды</td>
+                <th class="table-success">Дни тренировок</td>
+                </tr>
+            <tr class="table-success">
+                <td class="table-success">MTS Buzzers</td>
+                <td class="table-success">Вторник, четверг</td>
+            </tr>
+            <tr class="table-success">
+                <td class="table-success">Bad boys</td>
+                <td class="table-success">Понедельник, пятница</td>
+            </tr>
+            <tr class="table-success">
+                <td class="table-success">Эра-Недвижимости плюс</td>
+                <td class="table-success">Понедельник, четверг</td>
+            </tr>
+            <tr class="table-success">
+                <td class="table-success">Eagles</td>
+                <td class="table-success">Вторник, четверг</td>
+            </tr>
+            <tr class="table-success">
+                <td class="table-success">SIRIUS</td>
+                <td class="table-success">Вторник, пятница</td>
+            </tr>
+            <tr class="table-success">
+                <td class="table-success">БГУФК</td>
+                <td class="table-success">Понедельник, среда, пятница</td>
+            </tr>
+            <tr class="table-success">
+                <td class="table-success">DEAF-MINSK</td>
+                <td class="table-success">Вторник, четверг</td>
+            </tr>
+            <tr class="table-success">
+                <td class="table-success">Shooters</td>
+                <td class="table-success">Вторник, четверг</td>
+            </tr>
+            <tr class="table-success">
+                <td class="table-success">NORD</td>
+                <td class="table-success">Среда, суббота</td>
+            </tr>
+            <tr class="table-success">
+                <td class="table-success">TOGI БНТУ</td>
+                <td class="table-success">Понедельник, среда, пятница</td>
+            </tr>
+            <tr class="table-success">
+                <td class="table-success">Аматары</td>
+                <td class="table-success">Среда, суббота</td>
+            </tr>
+            <tr class="table-success">
+                <td class="table-success">STACKLEVEL</td>
+                <td class="table-success">Среда, пятница</td>
+            </tr>
+        </table>
 {% endblock %}
 
 {% block content %}
-<h2>Поиск по командам</h2>
-    <form action="{% url 'lesson:search_results' %}" method="get">
-        <input name="q" type="text" placeholder="Поиск..."></form>
+
     <h1>Команды:</h1>
     {% for team in teams %}
     <h3>{{ team.title }}</h3>

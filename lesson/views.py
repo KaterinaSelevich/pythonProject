@@ -1,5 +1,5 @@
 from turtle import title
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.core.mail import send_mail
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
@@ -34,6 +34,7 @@ class TeamListView(LoginRequiredMixin, ListView):
 def detailed_team(request, yy, mm, dd, slug):
     team = get_object_or_404(models.Team, publish__year=yy, 
                                 publish__month=mm, publish__day=dd, slug=slug)
+    teams = models.Team.objects.all()
     if request.method == "POST":
             comment_form = forms.CommentForm(request.POST)
             if comment_form.is_valid():
@@ -46,7 +47,8 @@ def detailed_team(request, yy, mm, dd, slug):
 
     return render(request, "teams/detailed_team.html",
                   {"team": team,
-                   "form": comment_form})
+                   "form": comment_form,
+                   "teams": teams})
 
 def share_team(request, team_id):
     team = get_object_or_404(models.Team, id=team_id)
@@ -169,3 +171,7 @@ def edit_profile(request):
     else:
         return render(request, 'edit_profile.html',
                       {'user_form': user_form, 'profile_form': profile_form})
+
+
+class AboutPageView(TemplateView):
+    template_name = "about.html"
