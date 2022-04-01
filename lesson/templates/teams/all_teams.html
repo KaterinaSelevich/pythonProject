@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 <style>
-    h2 {
+    h3 {
 color: ivory;
 }
 </style>
@@ -10,7 +10,7 @@ color: ivory;
         <input name="q" type="text" placeholder="Поиск..."></form>
          
         <table class="table-success" style="width:99%; border: 1px solid black; border-spacing: 0px;   
-        margin: 0; color: rgb(0, 13, 77); padding: 0;">
+        margin: 0; color: rgb(0, 13, 77); padding: 0; font-size: medium; ">
             <tr class="table-success">
                 <th class="table-success">Команды</td>
                 <th class="table-success">Дни тренировок</td>
@@ -76,7 +76,4 @@ color: ivory;
         </p>
         <a href="{{team.get_absolute_url}}"> Подробнее о команде </a><br>
     {% endfor %}
-    <p>
-        <a href="{% url "lesson:create_form" %}">Создать новую команду</a>
-    </p>
 {% endblock %}

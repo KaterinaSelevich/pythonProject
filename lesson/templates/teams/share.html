@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %} Поделиться {% endblock %}
+{% block title %} Отправить заявку на спарринг {% endblock %}
 
 {% block content %}
-    <h2>Поделиться по email:</h2>
+    <h2>Укажите свой email:</h2>
     <form action="." method="post">
         {{ form.as_p}}
         {% csrf_token %}
-        <input type="submit" value ="Share">
+        <input type="submit" value ="Отправить">
     </form>
 {% endblock %}

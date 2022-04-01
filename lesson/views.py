@@ -58,18 +58,19 @@ def share_team(request, team_id):
             cd = form.cleaned_data
             team_uri = request.build_absolute_uri(
                 team.get_absolute_url()
-                )
-            subject = 'Someone shared with you team ' + team.title
-            body_template = ('On our resource someone shared team with'
-                             'you. \n\nlink to team: {link}\n\ncomment: '
+            )
+            subject = 'Кто-то отправил заявку на участие в спарринге ' + team.title
+            body_template = ('На Вашем ресурсе кто-то отправил заявку'
+                             '\n\nСсылка на команду {link}\n\nкомментарий: '
                              '{comment}')
-            body = body_template.format(link=team_uri, comment=cd['comment'])
+            body = body_template.format(link=team_uri,
+                                        comment=cd['comment'])
             send_mail(subject, body, 'admin@my.com', (cd['to_email'],))
     else:
         form = forms.EmailTeamForm()
     return render(request,
                   'teams/share.html',
-                  {'team': team, 'form':form})
+                  {'team':team, 'form': form})
 
 
 def create_team(request):
@@ -97,17 +98,17 @@ def custom_login(request):
         if form.is_valid():
             cd = form.cleaned_data
             user = authenticate(
-                username=cd['username'],
-                password=cd['password'],
+                username=cd['Имя'],
+                password=cd['Пароль'],
             )
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('user was logged in')
+                    return HttpResponse('Пользователь вошел в систему')
                 else:
-                    return HttpResponse('user account is not activated')
+                    return HttpResponse('Учетная запись пользователя не активирована')
             else:
-                return HttpResponse('Incorrect User/Password')
+                return HttpResponse('Неверное Имя/Пароль')
     else:
         form = forms.LoginForm()
         return render(request, 'login.html', {'form': form})
@@ -122,13 +123,13 @@ def register(request):
         user_form = forms.RegistrationForm(request.POST)
         if user_form.is_valid():
             new_user = user_form.save(commit=False)
-            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.set_password(user_form.cleaned_data['Пароль'])
             new_user.save()
             models.Profile.objects.create(user=new_user, photo="unknown.jpg")
             return render(request, 'registration/registration_complete.html',
-                          {'new_user': new_user})
+                          {'Новый пользователь': new_user})
         else:
-            return HttpResponse('bad credentials')
+            return HttpResponse('Неверные данные')
     else:
         user_form = forms.RegistrationForm(request.POST)
         return render(request, 'registration/register_user.html', {"form": user_form})
@@ -163,8 +164,8 @@ def edit_profile(request):
     if post_method:
         if profile_form.is_valid():
             if user_form.is_valid():
-                if not profile_form.cleaned_data['photo']:
-                    profile_form.cleaned_data['photo'] = request.user.profile.photo
+                if not profile_form.cleaned_data['Фото']:
+                    profile_form.cleaned_data['Фото'] = request.user.profile.photo
                 profile_form.save()
                 user_form.save()
                 return render(request, 'profile.html')

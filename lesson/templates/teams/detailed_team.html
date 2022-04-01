@@ -9,7 +9,7 @@
         <p>{{ team.body|linebreaks }}</p>
         <img src="{{ team.cover.url }}">
         <p>Опубликовано {{ team.publish }} автором {{ team.author }}</p>
-        <a href="{% url "lesson:share_team" team.id %}">Поделиться</a>
+        <h3> <a href="{% url "lesson:share_team" team.id %}">Отправить заявку на участие в спарринге</a></h3>
         <p> Оставить комментарий о команде и о зале, в котором проходят тренировки. </p>
     {# comments for team #}
     {% if commented %}
