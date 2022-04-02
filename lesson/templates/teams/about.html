@@ -9,10 +9,5 @@
 
 Заполните форму ниже и Ваша команда попадёт в базу.
     </p>
-    <h2>Создать новую команду:</h2>
-    <form action="." method="post">
-        {{ form.as_p }}
-        {% csrf_token %}
-        <input type="submit" value="Create Team">
-    </form>
+    <a class="nav-link" href="{% url "lesson:create_form" %}">Создать новую команду</a>
 {% endblock %}

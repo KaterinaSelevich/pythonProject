@@ -175,4 +175,4 @@ def edit_profile(request):
 
 
 class AboutPageView(TemplateView):
-    template_name = "about.html"
+    template_name = "teams/about.html"
